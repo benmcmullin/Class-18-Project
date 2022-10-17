@@ -1,22 +1,25 @@
 <!-- ~~~ !TEMPLATE DRIVEN APPROACH! ~~~ -->
-<form>
+<form (ngSubmit)="onFormSubmit(titleref)" #titleref = "ngForm">
   <div id="book-data">
     <!-- Title -->
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" class="form-control" />
+      <input type="text" id="title" name="title" ngModel #titleref="ngModel" class="form-control" required />
+      <span class="help-block text-danger" *ngIf="!titleref.valid && titleref.touched">Title is Required!</span>
     </div>
 
     <!-- Author -->
     <div class="form-group">
       <label for="author">Author</label>
-      <input type="text" id="author" name="author" class="form-control" />
+      <input type="text" id="author" name="author" ngModel #authorRef="ngModel" class="form-control" required />
+      <span class="help-block text-danger" *ngIf="!authorRef.valid && authorRef.touched">Author is Required!</span>
     </div>
 
     <!-- Genre -->
     <div class="form-group">
       <label for="genre">Genre</label>
-      <select id="genre" name="genre" class="form-control">
+      <select id="genre" name="genre" class="form-control" required ngModel="mystery" #genreref="ngModel">
+        <span class="help-block text-danger"*ngIf="!genreref.valid && genreref.touched">Genre is Required!</span>
         <option value="mystery">Mystery</option>
         <option value="self-help">Self-Help</option>
         <option value="fantasy">Fantasy</option>
@@ -38,6 +41,6 @@
     </div>
 
     <!-- Submit Button -->
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Submit {{ onFormSubmit}} </button>
   </div>
 </form>
