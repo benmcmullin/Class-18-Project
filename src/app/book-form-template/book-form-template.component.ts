@@ -1,33 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-book-form-template',
   templateUrl: './book-form-template.component.html',
-  styleUrls: ['./book-form-template.component.css']
+  styleUrls: ['./book-form-template.component.css'],
 })
-export class BookFormTemplateComponent implements OnInit {
-
-  formHasBeenSubmitted = false;
-
+export class BookFormTemplateComponent {
+  genres = ['Mystery', 'Fantasy', 'Science Fiction', 'Self Help'];
+  selectedGenre = 'Mystery';
+  isSubmitted = false;
   inputDetails = {
-    title: "",
-    author: "",
-    genre: "",
-  }
-  constructor() { }
+    title: '',
+    author: '',
+    genre: '',
+  };
+  @ViewChild('bookForm', { static: false }) newForm: NgForm;
 
-  ngOnInit(): void {
-  }
 
-  onFormSubmit(formObj: NgForm) {
-    console.log("Submitted", formObj)
-    this.formHasBeenSubmitted= true;
-    this.inputDetails.title = formObj.value.title;
-    this.inputDetails.author = formObj.value.author;
-    this.inputDetails.genre = formObj.value.genre;
-    formObj.reset();
+  onFormSubmit() {
+    console.log(this.newForm.value);
+    this.isSubmitted = true;
+    this.inputDetails.title = this.newForm.value.title;
+    this.inputDetails.author = this.newForm.value.author;
+    this.inputDetails.genre = this.newForm.value.genre;
+    this.newForm.reset();
   }
-
 }
